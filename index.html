@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Save - Hollow Knight</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🦋 Editor de Save - Hollow Knight</h1>
+            <p class="subtitle">Editor completo com todos os campos do save</p>
+        </header>
+
+    </header>
+                <div style="text-align:center; margin-bottom:20px;">
+        <button id="tutorialButton">❓ Como usar (passo a passo)</button>
+        </div>
+
+        <div id="tutorialModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); color:white; z-index:2000; justify-content:center; align-items:center;">
+        <div style="background:#222; padding:30px; border-radius:10px; max-width:600px; text-align:left; box-shadow:0 0 20px black; position:relative;">
+            <h2 style="text-align:center; margin-bottom:15px;">📘 Como usar o Editor de Save</h2>
+            <ol style="line-height:1.8; font-size:16px;">
+            <li><b>Passo 1:</b> Clique no botão <b>“Carregar Save”</b> e escolha seu arquivo <code>.dat</code> do Hollow Knight.<br>
+                (normalmente ele fica em <code>C:\Users\SeuNome\AppData\LocalLow\Team Cherry\Hollow Knight</code>)</li>
+            <li><b>Passo 2:</b> Espere o editor carregar — você verá várias abas com informações do seu progresso (Geo, Charms, Bosses, etc).</li>
+            <li><b>Passo 3:</b> Clique nas caixas ou mude os números que quiser.  
+                <br><i>Exemplo:</i> se quiser mais Geo, mude o número para um valor maior.</li>
+            <li><b>Passo 4:</b> Quando terminar, clique no botão <b>“💾 Baixar Save”</b>.</li>
+            <li><b>Passo 5:</b> O site vai baixar um novo arquivo chamado <code>user1.dat</code>.  
+                Vá até a pasta do seu save e substitua o arquivo antigo (faça backup antes!).</li>
+            <li><b>Dica extra:</b> se algo der errado, recoloque o arquivo do backup.  
+                O editor nunca envia nada para a internet — tudo acontece no seu navegador.</li>
+            </ol>
+            <div style="text-align:center; margin-top:20px;">
+            <button id="closeTutorial" style="padding:10px 20px; background:#444; border:none; color:white; border-radius:5px; cursor:pointer;">Fechar</button>
+            </div>
+        </div>
+        </div>
+    </header>
+
+
+        <div class="file-section">
+            <div class="file-input-wrapper">
+                <input type="file" id="fileInput" accept=".dat" />
+                <button onclick="loadFile()">Carregar Save</button>
+            </div>
+        </div>
+
+        <div id="editor" style="display: none;">
+            <div class="warning">
+                ⚠️ <strong>Aviso:</strong> Faça backup do seu save antes de editar!
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('stats')">📊 Estatísticas</div>
+                <div class="tab" onclick="switchTab('abilities')">🎯 Habilidades</div>
+                <div class="tab" onclick="switchTab('charms')">💎 Charms</div>
+                <div class="tab" onclick="switchTab('items')">🔑 Itens</div>
+                <div class="tab" onclick="switchTab('bosses')">⚔️ Bosses</div>
+                <div class="tab" onclick="switchTab('grubs')">🐛 Grubs</div>
+                <div class="tab" onclick="switchTab('npcs')">👤 NPCs</div>
+                <div class="tab" onclick="switchTab('maps')">🗺️ Mapas</div>
+            </div>
+
+            <div id="tab-stats" class="tab-content active">
+                <div class="section">
+                    <h2>📊 Estatísticas Básicas</h2>
+                    <div class="grid-3">
+                        <div class="stat-box"><label>Geo</label><input type="number" id="geo" min="0" /></div>
+                        <div class="stat-box"><label>Vida Atual</label><input type="number" id="health" min="0" /></div>
+                        <div class="stat-box"><label>Vida Máxima</label><input type="number" id="maxHealth" min="1" /></div>
+                        <div class="stat-box"><label>Soul</label><input type="number" id="MPCharge" min="0" /></div>
+                        <div class="stat-box"><label>Max Soul</label><input type="number" id="maxMP" min="0" /></div>
+                        <div class="stat-box"><label>Notches</label><input type="number" id="charmSlots" min="3" max="11" /></div>
+                        <div class="stat-box"><label>Essence</label><input type="number" id="dreamOrbs" min="0" /></div>
+                        <div class="stat-box"><label>Rancid Eggs</label><input type="number" id="rancidEggs" min="0" /></div>
+                        <div class="stat-box"><label>Simple Keys</label><input type="number" id="simpleKeys" min="0" /></div>
+                        <div class="stat-box"><label>Heart Pieces</label><input type="number" id="heartPieces" min="0" max="4" /></div>
+                        <div class="stat-box"><label>Vessel Fragments</label><input type="number" id="vesselFragments" min="0" max="3" /></div>
+                        <div class="stat-box"><label>Pale Ore</label><input type="number" id="ore" min="0" /></div>
+                        <div class="stat-box"><label>Grubs Collected</label><input type="number" id="grubsCollected" min="0" max="46" /></div>
+                        <div class="stat-box"><label>Completion %</label><input type="number" id="completionPercentage" min="0" max="112" /></div>
+                        <div class="stat-box"><label>Play Time (h)</label><input type="number" id="playTime" min="0" step="0.1" /></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>⚔️ Combate</h2>
+                    <div class="grid-3">
+                        <div class="stat-box"><label>Nail Damage</label><input type="number" id="nailDamage" min="5" /></div>
+                        <div class="stat-box"><label>Nail Upgrades</label><input type="number" id="nailsmithUpgrades" min="0" max="4" /></div>
+                        <div class="stat-box"><label>Fireball Level</label><input type="number" id="fireballLevel" min="0" max="2" /></div>
+                        <div class="stat-box"><label>Quake Level</label><input type="number" id="quakeLevel" min="0" max="2" /></div>
+                        <div class="stat-box"><label>Scream Level</label><input type="number" id="screamLevel" min="0" max="2" /></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-abilities" class="tab-content">
+                <div class="section">
+                    <h2>🎯 Habilidades de Movimento</h2>
+                    <table id="movementTable"></table>
+                </div>
+                <div class="section">
+                    <h2>✨ Habilidades de Magia</h2>
+                    <table id="spellsTable"></table>
+                </div>
+                <div class="section">
+                    <h2>⚔️ Nail Arts</h2>
+                    <table id="nailArtsTable"></table>
+                </div>
+            </div>
+
+            <div id="tab-charms" class="tab-content">
+                <div class="section">
+                    <h2>💎 Charms</h2>
+                    <table id="charmsTable"></table>
+                </div>
+            </div>
+
+            <div id="tab-items" class="tab-content">
+                <div class="section">
+                    <h2>🔑 Itens Importantes</h2>
+                    <table id="itemsTable"></table>
+                </div>
+            </div>
+
+            <div id="tab-bosses" class="tab-content">
+                <div class="section">
+                    <h2>⚔️ Bosses Derrotados</h2>
+                    <table id="bossesTable"></table>
+                </div>
+                <div class="section">
+                    <h2>👻 Dream Warriors</h2>
+                    <table id="dreamWarriorsTable"></table>
+                </div>
+            </div>
+
+            <div id="tab-grubs" class="tab-content">
+                <div class="section">
+                    <h2>🐛 Grubs & Colecionáveis</h2>
+                    <div class="grid-2">
+                        <div class="stat-box"><label>Grubs Salvos</label><input type="number" id="grubsCollected2" min="0" max="46" /></div>
+                        <div class="stat-box"><label>Grub Rewards</label><input type="number" id="grubRewards" min="0" max="4" /></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-npcs" class="tab-content">
+                <div class="section">
+                    <h2>👤 NPCs & Progresso</h2>
+                    <table id="npcsTable"></table>
+                </div>
+            </div>
+
+            <div id="tab-maps" class="tab-content">
+                <div class="section">
+                    <h2>🗺️ Mapas Desbloqueados</h2>
+                    <table id="mapsTable"></table>
+                </div>
+            </div>
+
+            <button class="save-button" onclick="saveFile()">💾 Baixar Save</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

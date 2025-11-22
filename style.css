@@ -1,0 +1,212 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #000000f6 0%, #222222 100%);
+    color: #fff;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 2px solid #ffffff;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #ffffff;
+   
+}
+
+.subtitle {
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.file-section {
+    background: rgba(31, 31, 31, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ffffff;
+}
+
+.file-input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+input[type="file"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px;
+    background: rgba(68, 68, 68, 0.3);
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    color: #fff;
+}
+
+button {
+    background: #494949;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(12, 0, 2, 0.3);
+}
+
+.section {
+    background: rgba(61, 61, 61, 0.3);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid #2b2b2b;
+}
+
+h2 {
+    color: #ebebeb;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #292929;
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #383838;
+}
+
+th {
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    color: #e9e9e9;
+}
+
+tr:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid #0a131f;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.save-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 30px;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+}
+
+.warning {
+    background: rgba(117, 117, 117, 0.1);
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.stat-box {
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #a8a8a8;
+}
+
+.stat-box label {
+    display: block;
+    margin-bottom: 8px;
+    color: #dddddd;
+    font-size: 14px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    background: rgba(46, 46, 46, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid #969696;
+}
+
+.tab:hover {
+    background: rgba(167, 167, 167, 0.3);
+}
+
+.tab.active {
+    background: #424242;
+    border-color: #ffffff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
