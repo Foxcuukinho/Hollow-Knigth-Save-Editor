@@ -1,0 +1,35 @@
+# Configuração para GitHub Pages
+theme: jekyll-theme-cayman
+title: Hollow Knight Save Editor
+description: Editor completo de save do Hollow Knight com 1000+ campos editáveis
+
+# Configurações do site
+baseurl: "/Hollow-Knigth-Save-Editor"
+url: "https://foxcuukinho.github.io"
+
+# Excluir arquivos desnecessários do build
+exclude:
+  - README.md
+  - .gitignore
+  - .github
+
+# Incluir apenas os arquivos necessários
+include:
+  - index.html
+  - style.css
+  - script.js
+  - stats.js
+  - abilities.js
+  - charms.js
+  - items-bosses.js
+  - remaining.js
+
+# Desabilitar processamento Jekyll para HTML puro
+markdown: kramdown
+plugins:
+  - jekyll-relative-links
+
+# Configurações para HTML estático
+relative_links:
+  enabled: true
+  collections: false
